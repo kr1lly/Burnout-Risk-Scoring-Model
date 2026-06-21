@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Researcher-side Burnout Risk Scoring Model survey and labeled CSV dataset generator.">
+  <title>BRSM Survey &amp; Dataset Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-mark" aria-hidden="true">BR</div>
+      <div class="brand-copy">
+        <span class="eyebrow">Research instrument</span>
+        <h1>Burnout Risk Scoring Model</h1>
+        <p>Survey scoring and labeled dataset generator</p>
+      </div>
+      <span class="researcher-badge">For researchers only</span>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro-card" aria-labelledby="overview-title">
+      <div>
+        <span class="section-kicker">BRSM data preparation</span>
+        <h2 id="overview-title">Create model-ready labeled observations</h2>
+        <p>Complete all 16 original questionnaire items. Each submission is scored, labeled, and added to a locally saved dataset ready for Random Forest training.</p>
+      </div>
+      <aside class="scope-note" aria-label="Tool scope">
+        <strong>This is not the Random Forest model.</strong>
+        <span>It prepares labeled CSV data for an existing classifier.</span>
+      </aside>
+    </section>
+
+    <section class="scale-key" aria-labelledby="scale-title">
+      <h2 id="scale-title">Response scale</h2>
+      <div class="scale-items">
+        <span><b>1</b> Strongly Disagree</span>
+        <span><b>2</b> Disagree</span>
+        <span><b>3</b> Agree</span>
+        <span><b>4</b> Strongly Agree</span>
+      </div>
+    </section>
+
+    <form id="brsm-form" novalidate>
+      <div id="validation-message" class="validation-message" role="alert" hidden></div>
+      <div id="survey-sections"></div>
+
+      <div class="form-actions">
+        <button class="button button-primary" type="submit">Process survey entry</button>
+        <button class="button button-quiet" type="reset">Reset responses</button>
+        <span class="completion-note">All 16 responses are required.</span>
+      </div>
+    </form>
+
+    <section id="latest-result" class="latest-card" aria-live="polite" hidden>
+      <div class="latest-heading">
+        <div>
+          <span class="section-kicker">Latest processed entry</span>
+          <h2>Burnout risk result</h2>
+        </div>
+        <span id="latest-label" class="risk-badge"></span>
+      </div>
+      <div class="latest-grid">
+        <div class="metric"><span>Academic Workload</span><strong id="latest-workload">—</strong></div>
+        <div class="metric"><span>Sleep Duration &amp; Quality</span><strong id="latest-sleep">—</strong></div>
+        <div class="metric"><span>Academic Stress</span><strong id="latest-stress">—</strong></div>
+        <div class="metric"><span>Coping Strategies</span><strong id="latest-coping">—</strong></div>
+        <div class="metric metric-score"><span>BRSM burnout score</span><strong id="latest-score">—</strong></div>
+      </div>
+    </section>
+
+    <section class="dataset-card" aria-labelledby="dataset-title">
+      <div class="dataset-header">
+        <div>
+          <span class="section-kicker">Saved locally in this browser</span>
+          <h2 id="dataset-title">Processed dataset <span id="entry-count" class="count-pill">0 entries</span></h2>
+        </div>
+        <div class="dataset-actions">
+          <button id="copy-csv" class="button button-secondary" type="button">Copy CSV</button>
+          <button id="download-csv" class="button button-secondary" type="button">Download CSV</button>
+          <button id="clear-entries" class="button button-danger" type="button">Clear all entries</button>
+        </div>
+      </div>
+
+      <div id="table-region" class="table-wrap" tabindex="0" aria-label="Processed BRSM entries">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Academic Workload</th>
+              <th scope="col">Sleep Duration &amp; Quality</th>
+              <th scope="col">Academic Stress</th>
+              <th scope="col">Coping Strategies</th>
+              <th scope="col">Burnout Score</th>
+              <th scope="col">Burnout Label</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+        <div id="empty-state" class="empty-state">
+          <span>No processed entries yet.</span>
+          <small>Completed survey results will appear here.</small>
+        </div>
+      </div>
+
+      <div id="action-status" class="action-status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="method-card" aria-labelledby="method-title">
+      <div>
+        <span class="section-kicker">Scoring method</span>
+        <h2 id="method-title">How each observation is calculated</h2>
+      </div>
+      <div class="method-steps">
+        <div><span>01</span><p>Average the four responses in each variable.</p></div>
+        <div><span>02</span><p>Reverse protective scores: <code>5 − sleep</code> and <code>5 − coping</code>.</p></div>
+        <div><span>03</span><p>Apply weights: 30% stress, 30% workload, 20% sleep risk, and 20% coping risk.</p></div>
+      </div>
+      <p class="formula"><strong>BRSM:</strong> 0.30(academic stress) + 0.30(academic workload) + 0.20(sleep risk) + 0.20(coping risk)</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Research disclaimer:</strong> This tool is intended for research and early risk classification only. It is not a medical or psychological diagnosis and should not replace assessment by a qualified professional.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
