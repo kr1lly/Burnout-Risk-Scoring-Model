@@ -17,9 +17,9 @@ const surveyGroups = [
     note: "Higher scores indicate greater workload-related risk.",
     questions: [
       "I feel that my academic workload is difficult to manage.",
-      "I have more academic responsibilities than I can comfortably handle.",
+      "I feel overwhelmed by my academic responsibilities.",
       "I feel pressured by the number of academic tasks I need to complete.",
-      "I often struggle to finish academic requirements on time.",
+      "I frequently find it challenging to complete academic requirements on time.",
     ]
   },
   {
@@ -27,10 +27,10 @@ const surveyGroups = [
     title: "Sleep Duration and Quality",
     note: "A protective variable; higher scores indicate better sleep.",
     questions: [
-      "I get enough sleep to feel rested during the day.",
+      "I usually get sufficient sleep to feel rested during the day.",
       "I wake up feeling refreshed and ready for academic activities.",
       "I am satisfied with the quality of my sleep.",
-      "I often have uninterrupted sleep during school days."
+      "I typically experience uninterrupted sleep on school nights."
     ]
   },
   {
@@ -40,7 +40,7 @@ const surveyGroups = [
     questions: [
       "I feel emotionally drained because of my academic responsibilities.",
       "I feel overwhelmed by my academic demands.",
-      "I find it difficult to relax because of school-related concerns.",
+      "I struggle to relax due to concerns related to school.",
       "I feel mentally exhausted after completing academic tasks."
     ]
   },
@@ -49,9 +49,9 @@ const surveyGroups = [
     title: "Coping Strategies",
     note: "A protective variable; higher scores indicate healthier coping.",
     questions: [
-      "I am able to cope effectively with academic stress.",
+      "I feel capable of coping with academic stress effectively.",
       "I feel capable of handling academic challenges.",
-      "I can recover quickly after experiencing academic pressure.",
+      "I am able to recover quickly after facing academic pressure.",
       "I can stay calm when facing school-related difficulties."
     ]
   }
